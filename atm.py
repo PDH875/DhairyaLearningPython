@@ -1,42 +1,36 @@
-def main():
-    print("Welcome to the ATM!")
-    while True:
-        print("\nPlease choose an option:")
-        print("1. Create Account")
-        print("2. Login")
-        print("3. Exit")        
-        
-        x = input("Enter your choice (1-3):")
-    
-        if x == '1':
-                create_account()
-        elif x == '2':  
-                login()
-        elif x == '3':
-                print("Thank you for using the ATM. Goodbye!")
-        break
-    
-    main()
-
-    def create_account():
-        new_data = {new_username, new_password, new_value}
+data = [["user1", "pass1", "100,000"], ["user2", "pass2", "500,000"]]  
+def create_account():
+        global data
         new_username = input("Enter your desired username:")
+        for user in data:
+            if new_username == user[0]:
+                print("Username already exists. Please choose a different username.")
+                return
         new_password = input("Enter your desired password:")
-        new_value = input("Enter your initial deposit amount:")
+        for user in data:
+             if new_password == user[1]:
+                print("Password already exists. Please choose a different password.")
+                return
+        new_value = float(input("Enter your initial deposit amount:").replace(",", ""))
+        new_data = [new_username, new_password, new_value]
+        data.append(new_data)
         print("Account created successfully!")
 
-    def login():
-        data = {["user1", "pass1", 1000], ["user2", "pass2", 1500]}  # Example user data
+def login():
+        global data
         username = input("Enter your username:")
         password = input("Enter your password:")
         
         for user in data:
             if username == user[0] and password == user[1]:
                 print("Login succesful!")
+                
+                if isinstance(user[2], str):
+                    user[2] = float(user[2].replace(",", ""))
                 atm_menu(user)
                 return
             
-    def atm_menu(user):
+def atm_menu(user):
         while True:
             print("\nATM Menu:")
             print("1. Check Balance")
@@ -56,10 +50,33 @@ def main():
                 if amount > user[2]:
                     print("Insufficient funds!")
                 else:
-                    user[2] -= amount
+                    amount < user[2]
                     print(f"${amount} withdrawn successfully!")
             elif choice == '4':
-                print("Logging out...")
+                print("Logged out successfully!")
                 break
             else:
                 print("Invalid choice. Please try again.")
+
+def main():
+        print("Welcome to the ATM!")
+while True:
+        print("\nPlease choose an option:")
+        print("1. Create Account")
+        print("2. Login")
+        print("3. Exit")        
+        
+        x = input("Enter your choice (1-3):")
+    
+        if x == '1':
+                create_account()
+        elif x == '2':  
+                login()
+        elif x == '3':
+                print("Thank you for using the ATM. Goodbye!")
+        break
+        
+else:
+    print("Invalid choice. Please try again.")
+
+    main()
